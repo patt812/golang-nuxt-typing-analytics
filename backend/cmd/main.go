@@ -1,15 +1,19 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"log"
+
+	"github.com/patt812/golang-nuxt-typing-analytics/api"
+	"github.com/patt812/golang-nuxt-typing-analytics/database"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	db, err := database.Initialize()
+	if err != nil {
+		log.Fatalf("Failed to initialize database: %v", err)
+		return
+	}
+
+	r := api.Router(db)
 	r.Run(":8080")
 }
