@@ -18,5 +18,8 @@ FROM scratch
 # copy binary
 COPY --from=builder /main /main
 
+# copy resources
+COPY --from=builder /app/resources /app/resources
+
 # run binary
 CMD ["/main"]

@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/go-gormigrate/gormigrate/v2"
 	"github.com/patt812/golang-nuxt-typing-analytics/domain"
+	"github.com/patt812/golang-nuxt-typing-analytics/migrations"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -29,6 +31,12 @@ func Initialize() (*gorm.DB, error) {
 	}
 
 	db.AutoMigrate(&domain.Kana{}, &domain.Pattern{})
+
+	m := gormigrate.New(db, gormigrate.DefaultOptions, migrations.GetAllMigrations())
+
+	if err := m.Migrate(); err != nil {
+		return nil, fmt.Errorf("could not migrate: %v", err)
+	}
 
 	return db, nil
 }
