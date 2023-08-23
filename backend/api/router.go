@@ -2,12 +2,15 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/patt812/golang-nuxt-typing-analytics/middleware"
 	"github.com/patt812/golang-nuxt-typing-analytics/service"
 	"gorm.io/gorm"
 )
 
 func Router(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
+
+	r.Use(middleware.SetupCORS())
 
 	kanaAnalyticsService := service.NewKanaAnalyticsService(db)
 
