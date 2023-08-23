@@ -10,12 +10,12 @@ const analyze = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="analyze">
-    <input v-model="kana" type="text" name="kana" id="kana" pattern="[\u3040-\u309Fヴヵヶゃゅょゎゐゑ]+" title="ひらがなのみを入力してください" />
-    <button type="submit" :disabled="!kana.length">Submit</button>
+  <form class="mt-2" @submit.prevent="analyze">
+    <input v-model="kana" class="border border-black rounded" type="text" name="kana" id="kana" pattern="[\u3040-\u309Fヴヵヶゃゅょゎゐゑ]+" title="ひらがなのみを入力してください" />
+    <button class="ml-2 px-2 border border-black rounded" type="submit" :disabled="!kana.length">Submit</button>
   </form>
 
-  <div v-if="results?.length">
+  <div v-if="results?.length" class="mt-2">
     <div>{{ results.length }} patterns</div>
 
     <div v-for="(result, index) in results" :key="index">
